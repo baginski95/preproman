@@ -1,8 +1,8 @@
 import csv
 
-STATUSES_FILE = './data/statuses.csv'
-BOARDS_FILE = './data/boards.csv'
-CARDS_FILE = './data/cards.csv'
+STATUSES_FILE = '/home/pi/Web_module/Repositories/preproman/data/statuses.csv'
+BOARDS_FILE = '/home/pi/Web_module/Repositories/preproman/data/boards.csv'
+CARDS_FILE = '/home/pi/Web_module/Repositories/preproman/data/cards.csv'
 
 _cache = {}  # We store cached data in this dict to avoid multiple file readings
 

@@ -4,6 +4,8 @@ import { dataHandler } from "./data_handler.js";
 export let dom = {
     init: function () {
         // This function should run once, when the page is loaded.
+        const container = document.createElement('div');
+        container.classList.add('board-container');
     },
     loadBoards: function () {
         // retrieves boards and makes showBoards called
@@ -19,18 +21,31 @@ export let dom = {
 
         for(let board of boards){
             boardList += `
-                <li>${board.title}</li>
-            `;
+        <section class="board">
+            <div class="board-header"><span class="board-title">${board.title}</span>
+                <button class="board-add">Add Card</button>
+                <button class="board-toggle" data-title="${board.title}" data-id="${board.id}"><i class="fas fa-chevron-down"></i></button>
+            </div>
+        </section>`;
         }
 
         const outerHtml = `
-            <ul class="board-container">
+            <div class="board-container">
                 ${boardList}
-            </ul>
+            </div>
         `;
 
         let boardsContainer = document.querySelector('#boards');
         boardsContainer.insertAdjacentHTML("beforeend", outerHtml);
+
+        let boardButtons = document.querySelectorAll(".board-toggle");
+
+        for(let button of boardButtons){
+                button.addEventListener('mousedown', function(e){
+                let boardId = button.dataset.id;
+                dom.loadCards(boardId);
+            })
+        }
     },
     loadCards: function (boardId) {
         // retrieves cards and makes showCards called
