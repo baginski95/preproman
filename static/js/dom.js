@@ -25,8 +25,8 @@ export let dom = {
                 <button class="board-add">Add Card</button>
                 <button class="board-toggle" data-title="${board.title}" data-id="${board.id}"><i class="fas fa-chevron-down"></i></button>
             </div>
-        </section>
-        <div class="board-columns"></div>`;
+        </section>`
+        ;
         }
 
         const outerHtml = `
@@ -50,15 +50,64 @@ export let dom = {
     loadCards: function (boardId) {
         // retrieves cards and makes showCards called
         dataHandler.getCardsByBoardId(boardId,function(cards){
-            dom.showCards(cards);
-            console.log(cards);
+            dom.showCards(cards, boardId);
+
         });
 
+
+
+        // dataHandler.getCardsByBoardId(boardId,function(cards){
+        //     dom.showCards(cards);
+        //     console.log(cards);
+        // }
+        // );
+
     },
-    showCards: function (cards) {
-        // shows the cards of a board
-        // it adds necessary event listeners also
-        console.log("GIT");
+    showCards: function (cards, boardId) {
+        // let boardId = (cards[0].board_id);
+
+        let cardsParentElement = document.querySelector("[data-id='"+boardId+"']").parentNode;
+        // let output = "<div class=\"board-columns\">";
+        let test1 = Array(dom.loadStatuses());
+        let test2 = dom.loadStatuses();
+        // test1.forEach(e=>console.log(e))
+        // // console.log(cardsParentElement);
+        // //
+        //
+        console.log(test1);
+        console.log(test2);
+
     },
+    loadStatuses: function () {
+        return dataHandler.getStatuses();
+        }
+
+
+    // loadStatuses: function () {
+    //     return dataHandler.getStatuses(function (statuses) {
+    //         // console.log(statuses);
+    //         return statuses
+    //         // statuses.forEach(status=> arrTest.push(status))
+    //     });
+    //
+    //     }
+
+
+
+
+    // <div class="board-columns">
+    //             <div class="board-column">
+    //                 <div class="board-column-title">New</div>
+    //                 <div class="board-column-content dropzone">
+    //                     <div class="card" id="draggable" draggable="true">
+    //                         <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+    //                         <div class="card-title" >TEN MOŻEMY DRAG AND DROP</div>
+    //                     </div>
+    //                     <div class="card">
+    //                         <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+    //                         <div class="card-title">Card 2</div>
+    //                     </div>
+    //                 </div>
+    //             </div>
     // here comes more features
 };
