@@ -51,12 +51,14 @@ export let dom = {
         // retrieves cards and makes showCards called
         dataHandler.getCardsByBoardId(boardId,function(cards){
             dom.showCards(cards);
+            console.log(cards);
         });
 
     },
     showCards: function (cards) {
         // shows the cards of a board
         // it adds necessary event listeners also
+        console.log("GIT");
     },
     // here comes more features
 };
