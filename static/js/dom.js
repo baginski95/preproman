@@ -4,8 +4,7 @@ import { dataHandler } from "./data_handler.js";
 export let dom = {
     init: function () {
         // This function should run once, when the page is loaded.
-        const container = document.createElement('div');
-        container.classList.add('board-container');
+
     },
     loadBoards: function () {
         // retrieves boards and makes showBoards called
@@ -26,7 +25,8 @@ export let dom = {
                 <button class="board-add">Add Card</button>
                 <button class="board-toggle" data-title="${board.title}" data-id="${board.id}"><i class="fas fa-chevron-down"></i></button>
             </div>
-        </section>`;
+        </section>
+        <div class="board-columns"></div>`;
         }
 
         const outerHtml = `
@@ -49,6 +49,10 @@ export let dom = {
     },
     loadCards: function (boardId) {
         // retrieves cards and makes showCards called
+        dataHandler.getCardsByBoardId(boardId,function(cards){
+            dom.showCards(cards);
+        });
+
     },
     showCards: function (cards) {
         // shows the cards of a board
