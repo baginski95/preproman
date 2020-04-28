@@ -24,7 +24,7 @@ export let dom = {
         <section class="board">
             <div class="board-header"><span class="board-title">${board.title}</span>
                 <button class="board-add">Add Card</button>
-                <button class="board-toggle" data-title="${board.title}" data-id="${board.id}"><i class="fas fa-chevron-down"></i></button>
+                <button class="board-toggle" data-title="${board.title}" data-id="${board.id}" data-show="0"><i class="fas fa-chevron-down"></i></button>
             </div>
         </section>`
         ;
@@ -42,10 +42,38 @@ export let dom = {
         let boardButtons = document.querySelectorAll(".board-toggle");
 
         for(let button of boardButtons){
-                button.addEventListener('mousedown', function(e){
+                button.addEventListener('click', function(e){
+                    e.stopPropagation();
                 let boardId = button.dataset.id;
-                dom.loadCards(boardId);
-            })
+                let toggleAtribute = e.target.dataset.show;
+                if (toggleAtribute === "0") {
+                    dom.loadCards(boardId);
+                    e.target.dataset.show = "1";
+                } else {
+
+                        let board= e.target.parentNode.parentNode;
+                        console.log(board);
+                        board.removeChild(e.target.parentNode.nextSibling);
+                        e.target.dataset.show = "0";
+
+                }
+            });
+                button.firstChild.addEventListener('click', function(e){
+                    e.stopPropagation();
+                let boardId = button.dataset.id;
+                let toggleAtribute = button.dataset.show;
+                if (toggleAtribute === "0") {
+                    dom.loadCards(boardId);
+                    button.dataset.show = "1";
+                } else {
+
+                        let board= button.parentNode.parentNode;
+                        console.log(board);
+                        board.removeChild(button.parentNode.nextSibling);
+                        button.dataset.show = "0";
+
+                }
+            });
         }
     },
     loadCards: function (boardId) {
@@ -98,6 +126,7 @@ export let dom = {
         cardsParentElement.insertAdjacentHTML("afterEnd", output);
 
     },
+
 
     loadStatuses: function () {
         return dataHandler.getStatuses(function (statuses) {
