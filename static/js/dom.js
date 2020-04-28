@@ -1,6 +1,7 @@
 // It uses data_handler.js to visualize elements
 import { dataHandler } from "./data_handler.js";
 import { sampleData } from "./sample_data.js";
+import { dragCards } from "./drag.js";
 
 export let dom = {
     init: function () {
@@ -124,6 +125,12 @@ export let dom = {
         output += `</div>`;
 
         cardsParentElement.insertAdjacentHTML("afterEnd", output);
+        for(let card of allCards){
+            card.addEventListener('mousedown', (e) =>{
+                card.setAttribute('id', 'draggable');
+                dragCards();
+            });
+        }
 
     },
 
