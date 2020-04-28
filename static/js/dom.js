@@ -128,7 +128,6 @@ export let dom = {
         for(let card of domCards){
             card.addEventListener('mousedown', (e) =>{
                 e.stopPropagation();
-                e.preventDefault();
                 card.setAttribute('id', 'draggable');
                 dragCards();
             });
