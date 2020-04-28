@@ -65,12 +65,37 @@ export let dom = {
 
     },
     showCards: async function (cards, boardId) {
-        // let boardId = (cards[0].board_id);
-
+        let allCards = cards;
+        console.log(cards);
+        let usedStatuses = [];
+        allCards.forEach(card=>{
+            if (!usedStatuses.includes(card.status_id)) {
+                usedStatuses.push(card.status_id);
+                console.log(usedStatuses);
+            }
+        });
         let cardsParentElement = document.querySelector("[data-id='"+boardId+"']").parentNode;
-        // let output = "<div class=\"board-columns\">";
-        let statuses = await dom.loadStatuses();
-        console.log(statuses[0]);
+        let output = `<div class="board-columns">`;
+        usedStatuses.forEach(singleStatus=>{
+            output += `<div class="board-column">
+                <div class="board-column-title">${singleStatus}</div>
+                    <div class="board-column-content dropzone">`;
+                    cards.forEach(card => {
+                        if (card.status_id == singleStatus) {
+                            output += `
+                              <div class="card" draggable="true">
+                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+                            <div class="card-title" >${card.title}</div>
+                        </div>
+                            `
+                        }
+                    });
+                    output += `</div>`;
+            output += `</div>`
+        });
+        output += `</div>`;
+
+        cardsParentElement.insertAdjacentHTML("afterEnd", output);
 
     },
 
