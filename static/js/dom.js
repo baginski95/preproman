@@ -123,10 +123,12 @@ export let dom = {
             output += `</div>`
         });
         output += `</div>`;
-
+        let domCards = document.getElementsByClassName('card');
         cardsParentElement.insertAdjacentHTML("afterEnd", output);
-        for(let card of allCards){
+        for(let card of domCards){
             card.addEventListener('mousedown', (e) =>{
+                e.stopPropagation();
+                e.preventDefault();
                 card.setAttribute('id', 'draggable');
                 dragCards();
             });
