@@ -35,23 +35,9 @@ export let dataHandler = {
     getBoard: function (boardId, callback) {
         // the board is retrieved and then the callback function is called with the board
     },
-    getStatuses: function () {
+    getStatuses: function (callback) {
         // the statuses are retrieved and then the callback function is called with the statuses
-        let arr1 = [];
-        fetch("/get-statuses")
-        .then(res => res.json())
-        .then(statuses => {
 
-            // console.log(statuses[0].id)
-
-                statuses.forEach(single => {
-                    // console.log(single);
-                    arr1.push(single);})
-            // console.log(arr1[2])
-            });
-
-        return arr1;
-        // console.log(arr1)
     },
     getStatus: function (statusId, callback) {
         // the status is retrieved and then the callback function is called with the status

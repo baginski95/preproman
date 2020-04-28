@@ -68,14 +68,12 @@ export let dom = {
 
         let cardsParentElement = document.querySelector("[data-id='"+boardId+"']").parentNode;
         // let output = "<div class=\"board-columns\">";
-        let test1 = Array(dom.loadStatuses());
         let test2 = dom.loadStatuses();
         // test1.forEach(e=>console.log(e))
         // // console.log(cardsParentElement);
         // //
         //
-        console.log(test1);
-        console.log(test2);
+
 
     },
     loadStatuses: function () {
