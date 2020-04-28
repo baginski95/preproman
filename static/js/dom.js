@@ -1,5 +1,6 @@
 // It uses data_handler.js to visualize elements
 import { dataHandler } from "./data_handler.js";
+import { sampleData } from "./sample_data.js";
 
 export let dom = {
     init: function () {
@@ -49,8 +50,8 @@ export let dom = {
     },
     loadCards: function (boardId) {
         // retrieves cards and makes showCards called
-        dataHandler.getCardsByBoardId(boardId,function(cards){
-            dom.showCards(cards, boardId);
+        dataHandler.getCardsByBoardId(boardId,async function(cards){
+            await dom.showCards(cards, boardId);
 
         });
 
@@ -63,34 +64,43 @@ export let dom = {
         // );
 
     },
-    showCards: function (cards, boardId) {
+    showCards: async function (cards, boardId) {
         // let boardId = (cards[0].board_id);
 
         let cardsParentElement = document.querySelector("[data-id='"+boardId+"']").parentNode;
         // let output = "<div class=\"board-columns\">";
-        let test1 = Array(dom.loadStatuses());
-        let test2 = dom.loadStatuses();
+        let test2 = await dom.loadStatuses();
+
+        // console.log(sampleData.boards[0]);
         // test1.forEach(e=>console.log(e))
         // // console.log(cardsParentElement);
         // //
-        //
-        console.log(test1);
-        console.log(test2);
+
+//         async function doSomething() {
+//         let result = await dom.loadStatuses();
+//         return result + 1;
+// }
+//         let test3 = result;
+
+        console.log(test2[0]);
+        // console.log(test3);
 
     },
-    loadStatuses: function () {
-        return dataHandler.getStatuses();
-        }
 
 
     // loadStatuses: function () {
-    //     return dataHandler.getStatuses(function (statuses) {
-    //         // console.log(statuses);
-    //         return statuses
-    //         // statuses.forEach(status=> arrTest.push(status))
-    //     });
-    //
+    //     return dataHandler.getStatuses();
     //     }
+
+
+    loadStatuses: function () {
+        return dataHandler.getStatuses(function (statuses) {
+            // console.log(statuses);
+            return statuses
+            // statuses.forEach(status=> arrTest.push(status))
+        });
+
+        }
 
 
 
