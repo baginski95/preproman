@@ -37,29 +37,12 @@ export let dataHandler = {
     },
     getStatuses: async function () {
         // the statuses are retrieved and then the callback function is called with the statuses
-        let arr1 = [];
 
-  //       async function getRandomUser() {
-  // const res = await fetch('https://randomuser.me/api');
-  // const data = await res.json();
-
-        const res1 = await fetch("/get-statuses")
+        const result = await fetch("/get-statuses")
         .then(res => res.json())
-        // .then(statuses => {
-        //         console.log(statuses);
-        //     // console.log(statuses[0].id)
-        //
-        //         statuses.forEach(single => {
-        //             // console.log(single);
-        //             arr1.push(single);})
-        //
-        //
-        //     // console.log(arr1[2])
-        //     })
 
+        return result;
 
-        return res1;
-        // console.log(arr1)
     },
     getStatus: function (statusId, callback) {
         // the status is retrieved and then the callback function is called with the status

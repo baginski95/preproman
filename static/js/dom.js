@@ -69,29 +69,10 @@ export let dom = {
 
         let cardsParentElement = document.querySelector("[data-id='"+boardId+"']").parentNode;
         // let output = "<div class=\"board-columns\">";
-        let test2 = await dom.loadStatuses();
-
-        // console.log(sampleData.boards[0]);
-        // test1.forEach(e=>console.log(e))
-        // // console.log(cardsParentElement);
-        // //
-
-//         async function doSomething() {
-//         let result = await dom.loadStatuses();
-//         return result + 1;
-// }
-//         let test3 = result;
-
-        console.log(test2[0]);
-        // console.log(test3);
+        let statuses = await dom.loadStatuses();
+        console.log(statuses[0]);
 
     },
-
-
-    // loadStatuses: function () {
-    //     return dataHandler.getStatuses();
-    //     }
-
 
     loadStatuses: function () {
         return dataHandler.getStatuses(function (statuses) {
