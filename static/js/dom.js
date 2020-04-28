@@ -24,7 +24,7 @@ export let dom = {
         <section class="board">
             <div class="board-header"><span class="board-title">${board.title}</span>
                 <button class="board-add">Add Card</button>
-                <button class="board-toggle" data-title="${board.title}" data-id="${board.id}"><i class="fas fa-chevron-down"></i></button>
+                <button class="board-toggle" data-title="${board.title}" data-id="${board.id}" data-show="0"><i class="fas fa-chevron-down"></i></button>
             </div>
         </section>`
         ;
@@ -42,10 +42,38 @@ export let dom = {
         let boardButtons = document.querySelectorAll(".board-toggle");
 
         for(let button of boardButtons){
-                button.addEventListener('mousedown', function(e){
+                button.addEventListener('click', function(e){
+                    e.stopPropagation();
                 let boardId = button.dataset.id;
-                dom.loadCards(boardId);
-            })
+                let toggleAtribute = e.target.dataset.show;
+                if (toggleAtribute === "0") {
+                    dom.loadCards(boardId);
+                    e.target.dataset.show = "1";
+                } else {
+
+                        let board= e.target.parentNode.parentNode;
+                        console.log(board);
+                        board.removeChild(e.target.parentNode.nextSibling);
+                        e.target.dataset.show = "0";
+
+                }
+            });
+                button.firstChild.addEventListener('click', function(e){
+                    e.stopPropagation();
+                let boardId = button.dataset.id;
+                let toggleAtribute = button.dataset.show;
+                if (toggleAtribute === "0") {
+                    dom.loadCards(boardId);
+                    button.dataset.show = "1";
+                } else {
+
+                        let board= button.parentNode.parentNode;
+                        console.log(board);
+                        board.removeChild(button.parentNode.nextSibling);
+                        button.dataset.show = "0";
+
+                }
+            });
         }
     },
     loadCards: function (boardId) {
@@ -65,32 +93,39 @@ export let dom = {
 
     },
     showCards: async function (cards, boardId) {
-        // let boardId = (cards[0].board_id);
-
+        let allCards = cards;
+        console.log(cards);
+        let usedStatuses = [];
+        allCards.forEach(card=>{
+            if (!usedStatuses.includes(card.status_id)) {
+                usedStatuses.push(card.status_id);
+                console.log(usedStatuses);
+            }
+        });
         let cardsParentElement = document.querySelector("[data-id='"+boardId+"']").parentNode;
-        // let output = "<div class=\"board-columns\">";
-        let test2 = await dom.loadStatuses();
+        let output = `<div class="board-columns">`;
+        usedStatuses.forEach(singleStatus=>{
+            output += `<div class="board-column">
+                <div class="board-column-title">${singleStatus}</div>
+                    <div class="board-column-content dropzone">`;
+                    cards.forEach(card => {
+                        if (card.status_id == singleStatus) {
+                            output += `
+                              <div class="card" draggable="true">
+                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+                            <div class="card-title" >${card.title}</div>
+                        </div>
+                            `
+                        }
+                    });
+                    output += `</div>`;
+            output += `</div>`
+        });
+        output += `</div>`;
 
-        // console.log(sampleData.boards[0]);
-        // test1.forEach(e=>console.log(e))
-        // // console.log(cardsParentElement);
-        // //
-
-//         async function doSomething() {
-//         let result = await dom.loadStatuses();
-//         return result + 1;
-// }
-//         let test3 = result;
-
-        console.log(test2[0]);
-        // console.log(test3);
+        cardsParentElement.insertAdjacentHTML("afterEnd", output);
 
     },
-
-
-    // loadStatuses: function () {
-    //     return dataHandler.getStatuses();
-    //     }
 
 
     loadStatuses: function () {
