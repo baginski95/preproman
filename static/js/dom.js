@@ -164,6 +164,13 @@ export let dom = {
 
             }
         }
+    },
+    addBoard: function () {
+        let addBoardButton = document.createElement('button');
+        addBoardButton.textContent = 'Add Board';
+        addBoardButton.setAttribute('id', 'add-board');
+        document.querySelector('body').appendChild(addBoardButton);
+
     }
 
 
