@@ -142,8 +142,10 @@ button#add-board{
     cursor: pointer;
     outline: none;
     height: 50px;
-    background: #fff;
     border-radius: var(--border-radius) var(--border-radius) 0 0;
     padding: 0px 50px 0px 50px;
     margin: 0 20px 0 40px;
+       background: #222;
+    color: #fff;
+    font-size: 16px;
 }
