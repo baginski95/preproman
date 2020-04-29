@@ -1,7 +1,9 @@
 // It uses data_handler.js to visualize elements
 import { dataHandler } from "./data_handler.js";
 import { sampleData } from "./sample_data.js";
-import { dragCards } from "./drag.js";
+
+
+
 
 export let dom = {
     init: function () {
@@ -101,18 +103,19 @@ export let dom = {
             if (!usedStatuses.includes(card.status_id)) {
                 usedStatuses.push(card.status_id);
                 console.log(usedStatuses);
+                console.log("uuuuuuuuuuuuuuuuuu");
             }
         });
         let cardsParentElement = document.querySelector("[data-id='"+boardId+"']").parentNode;
         let output = `<div class="board-columns">`;
         usedStatuses.forEach(singleStatus=>{
             output += `<div class="board-column">
-                <div class="board-column-title">${singleStatus}</div>
-                    <div class="board-column-content dropzone">`;
+                <div class="board-column-title" >${singleStatus}</div>
+                    <div class="board-column-content dropzone" id="${singleStatus}">`;
                     cards.forEach(card => {
                         if (card.status_id == singleStatus) {
                             output += `
-                              <div class="card" draggable="true">
+                              <div class="card">
                             <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
                             <div class="card-title" >${card.title}</div>
                         </div>
@@ -125,15 +128,12 @@ export let dom = {
         output += `</div>`;
         let domCards = document.getElementsByClassName('card');
         cardsParentElement.insertAdjacentHTML("afterEnd", output);
-        for(let card of domCards){
-            card.addEventListener('mousedown', (e) =>{
-                e.stopPropagation();
-                card.setAttribute('id', 'draggable');
-                dragCards();
-            });
-        }
+    dragula([document.getElementById('new'), document.getElementById('in progress'), document.getElementById('testing'), document.getElementById('done')]);
+  },
 
-    },
+
+
+
 
 
     loadStatuses: function () {
@@ -141,9 +141,18 @@ export let dom = {
             // console.log(statuses);
             return statuses
             // statuses.forEach(status=> arrTest.push(status))
-        });
+        })}
 
-        }
+
+
+
+
+
+
+
+
+};
+
 
 
 
@@ -163,4 +172,4 @@ export let dom = {
     //                 </div>
     //             </div>
     // here comes more features
-};
+
