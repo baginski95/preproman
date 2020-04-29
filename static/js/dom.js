@@ -147,19 +147,22 @@ export let dom = {
     addCard: function () {
         let addCardButton = document.querySelectorAll('.board-add');
         for(let button of addCardButton){
-            button.addEventListener('click', (e)=>{
+            if (!(button.hasAttribute('isListener'))){
+            button.addEventListener('click', (e)=> {
+                addCardButton.forEach( cardButton => {cardButton.setAttribute('isListener', 'true');} );
+                button.setAttribute('isListener', 'true');
                 let column = button.parentNode.nextSibling.firstChild.lastChild;
                 let output = `
                               <div class="card">
                             <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
                             <div class="card-title" >New card</div>
                         </div>
-                            `
+                            `;
                 column.insertAdjacentHTML('afterbegin', output);
-
-
-
             })
+
+
+            }
         }
     }
 
