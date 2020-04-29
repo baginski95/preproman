@@ -77,6 +77,7 @@ export let dom = {
 
                 }
             });
+
         }
     },
     loadCards: function (boardId) {
@@ -129,7 +130,8 @@ export let dom = {
         let domCards = document.getElementsByClassName('card');
         cardsParentElement.insertAdjacentHTML("afterEnd", output);
     dragula([document.getElementById('new'), document.getElementById('in progress'), document.getElementById('testing'), document.getElementById('done')]);
-  },
+    this.addCard();
+    },
 
 
 
@@ -141,9 +143,25 @@ export let dom = {
             // console.log(statuses);
             return statuses
             // statuses.forEach(status=> arrTest.push(status))
-        })}
+        })},
+    addCard: function () {
+        let addCardButton = document.querySelectorAll('.board-add');
+        for(let button of addCardButton){
+            button.addEventListener('click', (e)=>{
+                let column = button.parentNode.nextSibling.firstChild.lastChild;
+                let output = `
+                              <div class="card">
+                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+                            <div class="card-title" >New card</div>
+                        </div>
+                            `
+                column.insertAdjacentHTML('afterbegin', output);
 
 
+
+            })
+        }
+    }
 
 
 
