@@ -173,9 +173,14 @@ fabric.properties
 # Markdown Navigator plugin
 
 # End of https://www.gitignore.io/api/linux,pycharm,webstorm,visualstudiocode
+<<<<<<< HEAD
 
 .idea/
 Env/
 __pycache__/
 venv/
+=======
+.idea/
+__pycache__/
+>>>>>>> a004465b3a8883e81243ed91b83b4ac65a0e3943
 
